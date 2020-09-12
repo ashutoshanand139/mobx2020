@@ -5,13 +5,13 @@ const StoreContext = React.createContext();
 
 const StoreProvider = ({ children }) => {
   const store = useLocalStore(() => ({
-    bugs: ["Centipede"],
-    addBug: bug => {
-      store.bugs.push(bug);
+    superheroes: ["Ironman"],
+    addSuperhero: (superhero) => {
+      store.superheroes.push(superhero);
     },
-    get bugsCount() {
-      return store.bugs.length;
-    }
+    get superheroesCount() {
+      return store.superheroes.length;
+    },
   }));
 
   return (
@@ -19,40 +19,46 @@ const StoreProvider = ({ children }) => {
   );
 };
 
-const BugsHeader = () => {
+const SuperheroesHeader = () => {
   const store = React.useContext(StoreContext);
-  return useObserver(() => <h1>{store.bugsCount} Bugs!</h1>);
+  return useObserver(() => (
+    <h1>
+      {store.superheroesCount == 1
+        ? "We have got just one Superhero in the squad."
+        : `We have got ${store.superheroesCount} Superheroes in the squad.`}
+    </h1>
+  ));
 };
 
-const BugsList = () => {
+const SuperheroesList = () => {
   const store = React.useContext(StoreContext);
 
   return useObserver(() => (
     <ul>
-      {store.bugs.map(bug => (
-        <li key={bug}>{bug}</li>
+      {store.superheroes.map((superhero) => (
+        <li key={superhero}>{superhero}</li>
       ))}
     </ul>
   ));
 };
 
-const BugsForm = () => {
+const SuperheroesForm = () => {
   const store = React.useContext(StoreContext);
-  const [bug, setBug] = React.useState("");
+  const [superheroes, setSuperhero] = React.useState("");
 
   return (
     <form
-      onSubmit={e => {
-        store.addBug(bug);
-        setBug("");
+      onSubmit={(e) => {
+        store.addSuperhero(superheroes);
+        setSuperhero("");
         e.preventDefault();
       }}
     >
       <input
         type="text"
-        value={bug}
-        onChange={e => {
-          setBug(e.target.value);
+        value={superheroes}
+        onChange={(e) => {
+          setSuperhero(e.target.value);
         }}
       />
       <button type="submit">Add</button>
@@ -64,9 +70,9 @@ export default function App() {
   return (
     <StoreProvider>
       <main>
-        <BugsHeader />
-        <BugsList />
-        <BugsForm />
+        <SuperheroesHeader />
+        <SuperheroesList />
+        <SuperheroesForm />
       </main>
     </StoreProvider>
   );

@@ -13,7 +13,7 @@ code {
 }
 
 main {
-  max-width: 600px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -26,8 +26,24 @@ ul {
 li {
   margin: 0;
   padding: 0;
+  font-size: 32px;
 }
 
 form {
   padding: 25px 0px;
+}
+
+input[type="text"] {
+  height: 30px;
+  font-size: 28px;
+}
+
+button {
+  position: relative;
+  background-color: rgb(141, 191, 224);
+  font-size: 28px;
+  height: 40px;
+  width: 100px;
+  font-weight: bold;
+  margin-left: 15px;
 }
